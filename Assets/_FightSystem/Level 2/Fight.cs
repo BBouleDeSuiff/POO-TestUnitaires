@@ -12,7 +12,15 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
 
             Character1 = character1;
             Character2 = character2;
-            IsFightFinished = false;
+
+
+            if(Character1.CurrentHealth == 0 )
+                IsFightFinished = true;
+            else if (Character2.CurrentHealth == 0)
+                IsFightFinished = true;
+            else
+                IsFightFinished = false;
+
 
 
         }
