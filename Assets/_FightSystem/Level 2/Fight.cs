@@ -45,17 +45,46 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
 
             if(Character1.Speed > Character2.Speed)
             {
-                Character2.ReceiveAttack(skillFromCharacter1, Character1.Attack);
+
+                if (skillFromCharacter1.Type == TYPE.HEAL)
+                {
+                    Character1.Heal(skillFromCharacter1.Power);
+                }
+                else
+                    Character2.ReceiveAttack(skillFromCharacter1, Character1.Attack);
+
                 if (Character2.IsAlive)
-                    Character1.ReceiveAttack(skillFromCharacter2, Character2.Attack);
+                {
+                    if (skillFromCharacter2.Type == TYPE.HEAL)
+                    {
+                        Character1.Heal(skillFromCharacter2.Power);
+                    }
+                    else
+                        Character1.ReceiveAttack(skillFromCharacter2, Character2.Attack);
+
+                }
                 else
                     IsFightFinished = true;
             }
             else
             {
-                Character1.ReceiveAttack(skillFromCharacter2, Character2.Attack);
+                if (skillFromCharacter2.Type == TYPE.HEAL)
+                {
+                    Character1.Heal(skillFromCharacter2.Power);
+                }
+                else
+                    Character1.ReceiveAttack(skillFromCharacter2, Character2.Attack);
+
                 if (Character1.IsAlive)
-                    Character2.ReceiveAttack(skillFromCharacter1, Character1.Attack);
+                {
+                    if (skillFromCharacter1.Type == TYPE.HEAL)
+                    {
+                        Character1.Heal(skillFromCharacter1.Power);
+                    }
+                    else
+                        Character2.ReceiveAttack(skillFromCharacter1, Character1.Attack);
+
+                }
                 else
                     IsFightFinished = true;
             }

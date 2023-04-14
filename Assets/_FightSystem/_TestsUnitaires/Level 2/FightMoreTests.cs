@@ -125,16 +125,59 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
         }
 
 
+
+        [Test]
+        public void HealingSkill()
+        {
+            Character pikachu = new Character(1000, 50, 0, 200, TYPE.NORMAL);
+            Character mewtwo = new Character(1000, 200, 0, 400, TYPE.NORMAL);
+            Fight f = new Fight(pikachu, mewtwo);
+            Punch p = new Punch();
+            Heal heal = new Heal();
+            f.ExecuteTurn(heal, p);
+            Assert.That(pikachu.CurrentHealth == 740);
+        }
+        [Test]
+        public void NotHealingMoreThantMax()
+        {
+            Character pikachu = new Character(10, 50, 0, 200, TYPE.FIRE);
+            Heal heal = new Heal();
+            pikachu.Heal(heal.Power);
+            Assert.That(pikachu.CurrentHealth == 10);
+        }
+
+        [Test]
+        public void UnequipeWithMaxHealth()
+        {
+            var c = new Character(100, 50, 30, 20, TYPE.NORMAL);
+            var e = new Equipment(100, 90, 70, 12);
+
+            // Equip character
+            c.Equip(e);
+            Assert.That(c.CurrentEquipment, Is.EqualTo(e));
+            Assert.That(c.MaxHealth, Is.EqualTo(200));
+            
+
+            // Increase MaxHealth doesn't increase CurrentHealth
+            Assert.That(c.CurrentHealth, Is.EqualTo(100));
+            Heal h = new Heal();
+            c.Heal(h.Power);
+            // Then remove equipment
+            c.Unequip();
+            Assert.That(c.CurrentEquipment, Is.EqualTo(null));
+            Assert.That(c.MaxHealth, Is.EqualTo(100));
+            Assert.That(c.CurrentHealth, Is.EqualTo(100));
+
+            
+        }
+
+
         // Tu as probablement remarqué qu'il y a encore beaucoup de code qui n'a pas été testé ...
         // À présent c'est à toi de créer les TU sur le reste et de les implémenter
 
         // Ce que tu peux ajouter:
-        // - Ajouter davantage de sécurité sur les tests apportés
-        // - un heal ne régénère pas plus que les HP Max
-        // - si on abaisse les HPMax les HP courant doivent suivre si c'est au dessus de la nouvelle valeur
         // - ajouter un equipement qui rend les attaques prioritaires puis l'enlever et voir que l'attaque n'est plus prioritaire etc)
         // - Le support des status (sleep et burn) qui font des effets à la fin du tour et/ou empeche le pkmn d'agir
-        // - Gérer la notion de force/faiblesse avec les différentes attaques à disposition (skills.cs)
         // - Cumuler les force/faiblesses en ajoutant un type pour l'équipement qui rendrait plus sensible/résistant à un type
 
     }

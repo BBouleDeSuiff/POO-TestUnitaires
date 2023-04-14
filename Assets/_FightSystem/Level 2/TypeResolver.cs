@@ -6,7 +6,7 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
     /// <summary>
     /// Définition des types dans le jeu
     /// </summary>
-    public enum TYPE { NORMAL, WATER, FIRE, GRASS }
+    public enum TYPE { NORMAL, WATER, FIRE, GRASS, HEAL }
 
     public class TypeResolver
     {

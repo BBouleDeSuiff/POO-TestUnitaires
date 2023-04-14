@@ -98,7 +98,6 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
         /// <exception cref="NotImplementedException"></exception>
         public void ReceiveAttack(Skill s, int attack)
         {
-            
             if (attack < 0 || s.Power <0)
                 throw new ArgumentException();
             if ((s.Type == TYPE.FIRE && this.BaseType == TYPE.WATER) || (s.Type == TYPE.WATER && this.BaseType == TYPE.GRASS) || (s.Type == TYPE.GRASS && this.BaseType == TYPE.FIRE))
@@ -142,12 +141,29 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
             if(_baseHealth <0 || _baseAttack < 0 || _baseDefense<0 || _baseSpeed <0)
                 throw new ArgumentException();
         }
+
+        public void Heal(int amount)
+        {
+            if (amount < 0 )
+                throw new ArgumentException();
+            else
+            {
+                this.CurrentHealth += amount;
+                if (this.CurrentHealth >= this.MaxHealth)
+                    CurrentHealth = MaxHealth;
+            }
+        }
         /// <summary>
         /// Desequipe l'objet en cours au personnage
         /// </summary>
         public void Unequip()
         {
             _baseHealth -= CurrentEquipment.BonusHealth;
+            if (CurrentHealth > MaxHealth)
+                CurrentHealth = MaxHealth;
+
+
+            _baseHealth = MaxHealth;
             _baseAttack -= CurrentEquipment.BonusAttack;
             _baseDefense -= CurrentEquipment.BonusDefense;
             _baseSpeed -= CurrentEquipment.BonusSpeed;

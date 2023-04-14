@@ -40,4 +40,9 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
     {
         public NegativePowerSkill() : base(TYPE.NORMAL, -100, StatusPotential.SLEEP) { }
     }
+
+    public class Heal : Skill
+    {
+        public Heal() : base(TYPE.HEAL, 10, StatusPotential.HEAL) { }
+    }
 }
