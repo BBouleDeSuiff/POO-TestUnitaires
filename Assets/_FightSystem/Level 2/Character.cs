@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using UnityEngine.Assertions;
 
 namespace _2023_GC_A2_Partiel_POO.Level_2
 {
@@ -37,6 +38,8 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
             _baseSpeed = baseSpeed;
             _baseType = baseType;
             CurrentHealth = MaxHealth;
+            if (_baseHealth < 0 || _baseAttack < 0 || _baseDefense < 0 || _baseSpeed < 0)
+                throw new ArgumentException();
         }
         /// <summary>
         /// HP actuel du personnage
@@ -95,6 +98,8 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
         /// <exception cref="NotImplementedException"></exception>
         public void ReceiveAttack(Skill s, int attack)
         {
+            if (attack < 0 || s.Power <0)
+                throw new ArgumentException();
             if ((s.Type == TYPE.FIRE && this.BaseType == TYPE.WATER) || (s.Type == TYPE.WATER && this.BaseType == TYPE.GRASS) || (s.Type == TYPE.GRASS && this.BaseType == TYPE.FIRE))
             {
                 CurrentHealth -= (int)((s.Power + attack)*0.5f) - Defense;
@@ -126,6 +131,8 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
             }
             else
                 throw new ArgumentNullException();
+            if(_baseHealth <0 || _baseAttack < 0 || _baseDefense<0 || _baseSpeed <0)
+                throw new ArgumentException();
         }
         /// <summary>
         /// Desequipe l'objet en cours au personnage

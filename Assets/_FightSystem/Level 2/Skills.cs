@@ -36,4 +36,8 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
     {
         public MagicalGrass() : base(TYPE.NORMAL, 70, StatusPotential.SLEEP) { }
     }
+    public class NegativePowerSkill : Skill
+    {
+        public NegativePowerSkill() : base(TYPE.NORMAL, -100, StatusPotential.SLEEP) { }
+    }
 }

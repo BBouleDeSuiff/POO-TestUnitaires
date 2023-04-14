@@ -29,9 +29,32 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
             Assert.That(mewtwo.CurrentHealth, Is.EqualTo(mewtwo.MaxHealth));
             Assert.That(f.IsFightFinished, Is.EqualTo(true));
         }
+        [Test]
+        public void NegativeAttack()
+        {
+            var pikachu = new Character(100, 50, 30, 20, TYPE.NORMAL);
+            var punch = new Punch();
+            var oldHealth = pikachu.CurrentHealth;
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                pikachu.ReceiveAttack(punch, -50);
+            });
+        }
+        public void NegativePower()
+        {
+            var pikachu = new Character(100, 50, 30, 20, TYPE.NORMAL);
+            var negativePowerSkill = new NegativePowerSkill();
+            var oldHealth = pikachu.CurrentHealth;
+
+            Assert.Throws<ArgumentException>(() =>
+            {
+                pikachu.ReceiveAttack(negativePowerSkill, 50);
+            });
+        }
 
         [Test]
-        public void EquipementWithNegativStats()
+        public void EquipementWithNegativeStats()
         {
             var pikachu = new Character(10, 50, 30, 20, TYPE.NORMAL);
             var shield = new Equipment(-20, 0, 10, 0);
@@ -41,6 +64,15 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
                 pikachu.Equip(shield);
             });
         }
+        [Test]
+        public void CharacterConstructorWithNegativeStats()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var pikachu = new Character(-10, 50, 30, 20, TYPE.NORMAL);
+            });
+        }
+
 
 
         // Tu as probablement remarqué qu'il y a encore beaucoup de code qui n'a pas été testé ...
