@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace _2023_GC_A2_Partiel_POO.Level_2
 {
@@ -92,18 +93,19 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
         /// </summary>
         /// <param name="s">skill attaquant</param>
         /// <exception cref="NotImplementedException"></exception>
-        public void ReceiveAttack(Skill s)
+        public void ReceiveAttack(Skill s, int attack)
         {
             if ((s.Type == TYPE.FIRE && this.BaseType == TYPE.WATER) || (s.Type == TYPE.WATER && this.BaseType == TYPE.GRASS) || (s.Type == TYPE.GRASS && this.BaseType == TYPE.FIRE))
             {
-                CurrentHealth -= (int)(s.Power*0.5f) - Defense;
+                CurrentHealth -= (int)((s.Power + attack)*0.5f) - Defense;
             }
             else if ((s.Type == TYPE.FIRE && this.BaseType == TYPE.GRASS) || (s.Type == TYPE.WATER && this.BaseType == TYPE.FIRE) || (s.Type == TYPE.GRASS && this.BaseType == TYPE.WATER))
             {
-                CurrentHealth -= s.Power * 2 - Defense;
+                CurrentHealth -= (s.Power + attack) * 2 - Defense;
+
             }
             else
-                CurrentHealth -= s.Power - Defense;
+                CurrentHealth -= (s.Power + attack) - Defense;
             if(CurrentHealth < 0)
                 CurrentHealth = 0;
         }

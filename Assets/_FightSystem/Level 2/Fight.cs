@@ -37,17 +37,17 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
 
             if(Character1.Speed > Character2.Speed)
             {
-                Character2.ReceiveAttack(skillFromCharacter1);
+                Character2.ReceiveAttack(skillFromCharacter1, Character1.Attack);
                 if (Character2.IsAlive)
-                    Character1.ReceiveAttack(skillFromCharacter2);
+                    Character1.ReceiveAttack(skillFromCharacter2, Character2.Attack);
                 else
                     IsFightFinished = true;
             }
             else
             {
-                Character1.ReceiveAttack(skillFromCharacter2);
+                Character1.ReceiveAttack(skillFromCharacter2, Character2.Attack);
                 if (Character1.IsAlive)
-                    Character2.ReceiveAttack(skillFromCharacter1);
+                    Character2.ReceiveAttack(skillFromCharacter1, Character1.Attack);
                 else
                     IsFightFinished = true;
             }

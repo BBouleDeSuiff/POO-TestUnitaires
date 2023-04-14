@@ -33,7 +33,7 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
         [Test]
         public void EquipementWithNegativStats()
         {
-            var pikachu = new Character(100, 50, 30, 20, TYPE.NORMAL);
+            var pikachu = new Character(10, 50, 30, 20, TYPE.NORMAL);
             var shield = new Equipment(-20, 0, 10, 0);
             Assert.Throws<ArgumentException>(() =>
             {
