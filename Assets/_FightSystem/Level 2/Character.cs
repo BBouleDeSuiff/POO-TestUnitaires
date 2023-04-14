@@ -98,19 +98,27 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
         /// <exception cref="NotImplementedException"></exception>
         public void ReceiveAttack(Skill s, int attack)
         {
+            
             if (attack < 0 || s.Power <0)
                 throw new ArgumentException();
             if ((s.Type == TYPE.FIRE && this.BaseType == TYPE.WATER) || (s.Type == TYPE.WATER && this.BaseType == TYPE.GRASS) || (s.Type == TYPE.GRASS && this.BaseType == TYPE.FIRE))
             {
-                CurrentHealth -= (int)((s.Power + attack)*0.5f) - Defense;
+                int damage = (int)((s.Power + attack) * 0.5f) - Defense;
+                if (damage >= 0)
+                    CurrentHealth -= damage;
             }
             else if ((s.Type == TYPE.FIRE && this.BaseType == TYPE.GRASS) || (s.Type == TYPE.WATER && this.BaseType == TYPE.FIRE) || (s.Type == TYPE.GRASS && this.BaseType == TYPE.WATER))
             {
-                CurrentHealth -= (s.Power + attack) * 2 - Defense;
-
+                int damage = (s.Power + attack) * 2 - Defense;
+                if (damage >= 0)
+                    CurrentHealth -= damage;
             }
             else
-                CurrentHealth -= (s.Power + attack) - Defense;
+            {
+                int damage = (s.Power + attack) - Defense;
+                if (damage >= 0)
+                    CurrentHealth -= damage;
+            }
             if(CurrentHealth < 0)
                 CurrentHealth = 0;
         }

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace _2023_GC_A2_Partiel_POO.Level_2
 {
     /// <summary>

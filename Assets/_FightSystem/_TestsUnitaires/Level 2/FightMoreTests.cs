@@ -65,15 +65,20 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
             });
         }
         [Test]
-        public void CharacterConstructorWithNegativeStats()
+        [TestCase(-10, 10, 10, 10)]
+        [TestCase(10, -10, 10, 10)]
+        [TestCase(10, 10, -10, 10)]
+        [TestCase(10, 10, 10, -10)]
+
+        public void CharacterConstructorWithNegativeStats(int pv, int attack, int def, int speed)
         {
             Assert.Throws<ArgumentException>(() =>
             {
-                var pikachu = new Character(-10, 50, 30, 20, TYPE.NORMAL);
+                var pikachu = new Character(pv, attack, def, speed, TYPE.NORMAL);
             });
         }
         [Test]
-        public void DmgWithTypePositiv()
+        public void DmgWithTypePositive()
         {
             Character pikachu = new Character(1000, 50, 0, 200, TYPE.WATER);
             Character mewtwo = new Character(1000, 10, 0, 200, TYPE.NORMAL);
@@ -88,7 +93,7 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
         }
 
         [Test]
-        public void DmgWithTypeNegativ()
+        public void DmgWithTypeNegative()
         {
             Character pikachu = new Character(1000, 50, 0, 200, TYPE.FIRE);
             Character mewtwo = new Character(1000, 10, 0, 200, TYPE.NORMAL);
@@ -99,7 +104,24 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
             // oneshot pikachu, so pikachu doesn't attack
             f.ExecuteTurn(p, grass);
             Assert.That(pikachu.CurrentHealth == 1000 - ((mewtwo.Attack + grass.Power) * 0.5));
-
+        }
+        [Test]
+        public void AttackInferiorToDefense()
+        {
+            Character pikachu = new Character(1000, 50, 1000, 200, TYPE.FIRE);
+            Character mewtwo = new Character(1000, 10, 0, 200, TYPE.NORMAL);
+            Punch p = new Punch();
+            pikachu.ReceiveAttack(p, 50);
+            Assert.That(pikachu.CurrentHealth == 1000 );
+        }
+        [Test]
+        public void IsPokemonAt0HpAtTheStart()
+        {
+            Character pikachu = new Character(0, 50, 0, 200, TYPE.FIRE);
+            Character mewtwo = new Character(1000, 10, 0, 200, TYPE.NORMAL);
+            Fight f = new Fight(pikachu, mewtwo);
+            Assert.That(pikachu.IsAlive == false);
+            Assert.That(f.IsFightFinished == true);
         }
 
 
