@@ -82,7 +82,7 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
         /// </summary>
         public StatusEffect CurrentStatus { get; private set; }
 
-        public bool IsAlive => throw new NotImplementedException();
+        public bool IsAlive => CurrentHealth > 0;
 
 
         /// <summary>
@@ -94,7 +94,18 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
         /// <exception cref="NotImplementedException"></exception>
         public void ReceiveAttack(Skill s)
         {
-            throw new NotImplementedException();
+            if ((s.Type == TYPE.FIRE && this.BaseType == TYPE.WATER) || (s.Type == TYPE.WATER && this.BaseType == TYPE.GRASS) || (s.Type == TYPE.GRASS && this.BaseType == TYPE.FIRE))
+            {
+                CurrentHealth -= (int)(s.Power*0.5f) - Defense;
+            }
+            else if ((s.Type == TYPE.FIRE && this.BaseType == TYPE.GRASS) || (s.Type == TYPE.WATER && this.BaseType == TYPE.FIRE) || (s.Type == TYPE.GRASS && this.BaseType == TYPE.WATER))
+            {
+                CurrentHealth -= s.Power * 2 - Defense;
+            }
+            else
+                CurrentHealth -= s.Power - Defense;
+            if(CurrentHealth < 0)
+                CurrentHealth = 0;
         }
         /// <summary>
         /// Equipe un objet au personnage
@@ -103,14 +114,29 @@ namespace _2023_GC_A2_Partiel_POO.Level_2
         /// <exception cref="ArgumentNullException">Si equipement est null</exception>
         public void Equip(Equipment newEquipment)
         {
-            throw new NotImplementedException();
+            if(newEquipment!= null)
+            {
+                CurrentEquipment = newEquipment;
+                _baseHealth += CurrentEquipment.BonusHealth;
+                _baseAttack += CurrentEquipment.BonusAttack;
+                _baseDefense += CurrentEquipment.BonusDefense;
+                _baseSpeed += CurrentEquipment.BonusSpeed;
+            }
+            else
+                throw new ArgumentNullException();
         }
         /// <summary>
         /// Desequipe l'objet en cours au personnage
         /// </summary>
         public void Unequip()
         {
-            throw new NotImplementedException();
+            _baseHealth -= CurrentEquipment.BonusHealth;
+            _baseAttack -= CurrentEquipment.BonusAttack;
+            _baseDefense -= CurrentEquipment.BonusDefense;
+            _baseSpeed -= CurrentEquipment.BonusSpeed;
+            _baseType = TYPE.NORMAL;
+
+            CurrentEquipment = null;
         }
 
     }
