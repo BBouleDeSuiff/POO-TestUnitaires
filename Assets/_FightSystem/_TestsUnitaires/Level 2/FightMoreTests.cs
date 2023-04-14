@@ -72,7 +72,35 @@ namespace _2023_GC_A2_Partiel_POO.Tests.Level_2
                 var pikachu = new Character(-10, 50, 30, 20, TYPE.NORMAL);
             });
         }
+        [Test]
+        public void DmgWithTypePositiv()
+        {
+            Character pikachu = new Character(1000, 50, 0, 200, TYPE.WATER);
+            Character mewtwo = new Character(1000, 10, 0, 200, TYPE.NORMAL);
+            Fight f = new Fight(pikachu, mewtwo);
+            Punch p = new Punch();
+            MagicalGrass grass = new MagicalGrass();
+            // if both pokemon have the same speed the second pokemon attack first so mewtwo attacks first,
+            // oneshot pikachu, so pikachu doesn't attack
+            f.ExecuteTurn(p, grass);
+            Assert.That(pikachu.CurrentHealth == 1000 - ((mewtwo.Attack + grass.Power) * 2));
 
+        }
+
+        [Test]
+        public void DmgWithTypeNegativ()
+        {
+            Character pikachu = new Character(1000, 50, 0, 200, TYPE.FIRE);
+            Character mewtwo = new Character(1000, 10, 0, 200, TYPE.NORMAL);
+            Fight f = new Fight(pikachu, mewtwo);
+            Punch p = new Punch();
+            MagicalGrass grass = new MagicalGrass();
+            // if both pokemon have the same speed the second pokemon attack first so mewtwo attacks first,
+            // oneshot pikachu, so pikachu doesn't attack
+            f.ExecuteTurn(p, grass);
+            Assert.That(pikachu.CurrentHealth == 1000 - ((mewtwo.Attack + grass.Power) * 0.5));
+
+        }
 
 
         // Tu as probablement remarqué qu'il y a encore beaucoup de code qui n'a pas été testé ...
